@@ -102,7 +102,7 @@ download() {
   file=$file1+$file2+$file3
 
   wget $file
-  tar -zxvf $file
+  tar -zxvf "helm-v${HELM_VERSION}-linux-amd64.tar.gz"
   cp linux-amd64/helm /usr/local/bin/helm
 
   popd >& /dev/null
