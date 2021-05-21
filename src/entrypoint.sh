@@ -27,7 +27,7 @@ REPO_URL=""
 
 main() {
   if [[ -z "$HELM_VERSION" ]]; then
-      HELM_VERSION="3.5.1"
+      HELM_VERSION="3.4.2"
   fi
 
   if [[ -z "$CHARTS_DIR" ]]; then
@@ -96,7 +96,7 @@ download() {
 
   pushd $tmpDir >& /dev/null
 
-  curl -sSL https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz | tar xz
+  curl -sSL https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz | tar -xvf
   cp linux-amd64/helm /usr/local/bin/helm
 
   popd >& /dev/null
