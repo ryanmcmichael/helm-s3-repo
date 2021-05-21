@@ -140,9 +140,11 @@ versions() {
     echo "Versioning $chart"
     if changes | grep -q $chart
     then
-    {
+      if  [[ -f "$chart/Chart.lock" ]]
+      then
+        echo "Skipping external chart"
+      fi
       echo "changed"
-    }
     fi
   done
 }
