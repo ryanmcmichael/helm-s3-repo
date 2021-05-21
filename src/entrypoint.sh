@@ -127,10 +127,16 @@ package() {
   helm package ${CHARTS[*]} --destination ${CHARTS_TMP_DIR} $APP_VERSION_CMD$CHART_VERSION_CMD
 }
 
+changes() {
+  git diff --name-only --diff-filter=AMDR --cached @~..@
+}
+
 versions() {
   for chart in ${CHARTS[@]}; do
     echo "Versioning $chart"
-    git diff --quiet HEAD $REF -- $chart || echo changed
+    if changes | grep -q $chart {
+      echo "changed"
+    }
   done
 }
 
