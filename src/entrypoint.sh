@@ -96,12 +96,12 @@ download() {
   tmpDir=$(mktemp -d)
 
   pushd $tmpDir >& /dev/null
-  file1="helm-v"
+  file1="https://get.helm.sh/helm-v"
   file2=$HELM_VERSION
   file3="-linux-amd64.tar.gz"
   file=$file1+$file2+$file3
 
-  wget https://get.helm.sh/$file
+  wget $file
   tar -zxvf $file
   cp linux-amd64/helm /usr/local/bin/helm
 
@@ -138,9 +138,12 @@ changes() {
 versions() {
   for chart in ${CHARTS[@]}; do
     echo "Versioning $chart"
-    if changes | grep -q $chart {
+    if changes | grep -q $chart
+    then
+    {
       echo "changed"
     }
+    fi
   done
 }
 
