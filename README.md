@@ -1,6 +1,6 @@
 # Helm S3 Publisher
 
-A GitHub Action for publishing Helm charts to AWS S3.
+A GitHub Action for publishing Helm charts to AWS S3. Example usage can be found at https://github.com/ryanmcmichael/helm-s3-repo-test
 
 ## Usage
 
