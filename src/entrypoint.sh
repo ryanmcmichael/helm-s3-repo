@@ -96,8 +96,8 @@ download() {
 
   pushd $tmpDir >& /dev/null
 
-  curl -sSL https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz
-  tar -zxvf helm-v${HELM_VERSION}-linux-amd64.tar.gz
+  curl -sSL https://get.helm.sh/helm-v3.5.1-linux-amd64.tar.gz
+  tar -zxvf helm-v3.5.1-linux-amd64.tar.gz
   cp linux-amd64/helm /usr/local/bin/helm
 
   popd >& /dev/null
