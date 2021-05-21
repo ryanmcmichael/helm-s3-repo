@@ -130,6 +130,7 @@ package() {
 versions() {
   for chart in ${CHARTS[@]}; do
     echo "Versioning $chart"
+    git diff --quiet HEAD $REF -- $DIR || echo changed
   done
 }
 
