@@ -101,8 +101,6 @@ download() {
   tar -zxvf helm-v3.5.1-linux-amd64.tar.gz
   cp linux-amd64/helm /usr/local/bin/helm
 
-  helm plugin install https://github.com/sstarcher/helm-release
-
   popd >& /dev/null
   rm -rf $tmpDir
 }
@@ -131,7 +129,7 @@ package() {
 
 versions() {
   for chart in ${CHARTS[@]}; do
-    helm release "${chart}"
+    echo "Versioning $chart"
   done
 }
 
