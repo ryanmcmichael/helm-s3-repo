@@ -96,7 +96,7 @@ download() {
 
   pushd $tmpDir >& /dev/null
 
-  wget -sSL https://get.helm.sh/helm-v3.5.1-linux-amd64.tar.gz
+  wget https://get.helm.sh/helm-v3.5.1-linux-amd64.tar.gz
   tar -zxvf helm-v3.5.1-linux-amd64.tar.gz
   cp linux-amd64/helm /usr/local/bin/helm
 
