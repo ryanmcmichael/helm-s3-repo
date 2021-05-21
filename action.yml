@@ -28,9 +28,6 @@ inputs:
   repository:
     description: "The GitHub repository name, defaults to `GITHUB_REPOSITORY`"
     required: false
-  branch:
-    description: "The branch to publish charts, defaults to `gh-pages`"
-    required: false
   target_dir:
     description: "The target directory to store the charts, defaults to `.`"
     required: false
