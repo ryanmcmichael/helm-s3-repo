@@ -77,6 +77,7 @@ main() {
     lint
   fi
   package
+  versions
   upload
 }
 
@@ -99,6 +100,8 @@ download() {
   wget https://get.helm.sh/helm-v3.5.1-linux-amd64.tar.gz
   tar -zxvf helm-v3.5.1-linux-amd64.tar.gz
   cp linux-amd64/helm /usr/local/bin/helm
+
+  helm plugin install https://github.com/sstarcher/helm-release
 
   popd >& /dev/null
   rm -rf $tmpDir
@@ -124,6 +127,12 @@ package() {
   fi
 
   helm package ${CHARTS[*]} --destination ${CHARTS_TMP_DIR} $APP_VERSION_CMD$CHART_VERSION_CMD
+}
+
+versions() {
+  for chart in ${CHARTS[@]}; do
+    helm release "${chart}"
+  done
 }
 
 upload() {
@@ -154,13 +163,6 @@ upload() {
 
 
   AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} aws s3 sync ${TARGET_DIR} ${CHARTS_URL} --content-type "application/x-gzip"
-
-  #git add ${TARGET_DIR}
-  #git add ${INDEX_DIR}/index.yaml
-
-  #git commit -m "Publish $charts"
-  #git push origin ${BRANCH}
-
 
 
   popd >& /dev/null
