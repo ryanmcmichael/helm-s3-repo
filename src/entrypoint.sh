@@ -96,9 +96,13 @@ download() {
   tmpDir=$(mktemp -d)
 
   pushd $tmpDir >& /dev/null
+  file1="helm-v"
+  file2=$HELM_VERSION
+  file3="-linux-amd64.tar.gz"
+  file=$file1+$file2+$file3
 
-  wget https://get.helm.sh/helm-v3.5.1-linux-amd64.tar.gz
-  tar -zxvf helm-v3.5.1-linux-amd64.tar.gz
+  wget https://get.helm.sh/$file
+  tar -zxvf $file
   cp linux-amd64/helm /usr/local/bin/helm
 
   popd >& /dev/null
