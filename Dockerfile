@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
 #RUN apk --no-cache add git
-RUN apt-get update && apt-get install -y git curl wget
+RUN apt-get update && apt-get install -y git curl wget awscli
 
 COPY src/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
