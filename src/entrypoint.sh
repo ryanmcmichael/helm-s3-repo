@@ -12,13 +12,12 @@ CHARTS_URL=$6
 OWNER=$7
 REPOSITORY=$8
 TARGET_DIR=$9
-HELM_VERSION=$10
-LINTING=$11
-COMMIT_USERNAME=${12}
-COMMIT_EMAIL=${13}
-APP_VERSION=${14}
-CHART_VERSION=${15}
-INDEX_DIR=${16}
+LINTING=$10
+COMMIT_USERNAME=${11}
+COMMIT_EMAIL=${12}
+APP_VERSION=${13}
+CHART_VERSION=${14}
+INDEX_DIR=${15}
 
 CHARTS=()
 CHARTS_TMP_DIR=$(mktemp -d)
@@ -26,10 +25,6 @@ REPO_ROOT=$(git rev-parse --show-toplevel)
 REPO_URL=""
 
 main() {
-  if [[ -z "$HELM_VERSION" ]]; then
-      HELM_VERSION="3.5.1"
-  fi
-
   if [[ -z "$CHARTS_DIR" ]]; then
       CHARTS_DIR="charts"
   fi
@@ -77,7 +72,6 @@ main() {
     lint
   fi
   package
-  versions
   upload
 }
 
@@ -96,12 +90,9 @@ download() {
   tmpDir=$(mktemp -d)
 
   pushd $tmpDir >& /dev/null
-  file1="https://get.helm.sh/helm-v"
-  file2=$HELM_VERSION
-  file3="-linux-amd64.tar.gz"
-  file=$file1+$file2+$file3
 
-  wget $file
+  #TODO: add helm versioning
+  wget https://get.helm.sh/helm-v3.5.1-linux-amd64.tar.gz
   tar -zxvf "helm-v3.5.1-linux-amd64.tar.gz"
   cp linux-amd64/helm /usr/local/bin/helm
 
@@ -133,20 +124,6 @@ package() {
 
 changes() {
   git diff --name-only --diff-filter=AMDR --cached @~..@
-}
-
-versions() {
-  for chart in ${CHARTS[@]}; do
-    echo "Versioning $chart"
-    if changes | grep -q $chart
-    then
-      if  [[ -f "$chart/Chart.lock" ]]
-      then
-        echo "Skipping external chart"
-      fi
-      echo "changed"
-    fi
-  done
 }
 
 upload() {
